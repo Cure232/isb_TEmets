@@ -159,16 +159,15 @@ def decypher_text(text: str, json_key_content: dict) -> str:
     return result
 
 
-
 def main() -> None:
     russian_alphabet = ['а', 'б', 'в', 'г', 'д', 'е', 'ё',
                          'ж', 'з', 'и', 'й', 'к', 'л', 'м',
                            'н', 'о', 'п', 'р', 'с', 'т', 'у',
                              'ф', 'х', 'ц', 'ч', 'ш', 'щ', 'ъ',
                                'ы', 'ь', 'э', 'ю', 'я']
-    #set_new_cypher_parameters("task1/key.json", russian_alphabet, "панграмма")
+    set_new_cypher_parameters("task1/key.json", russian_alphabet, "панграмма")
 
-    #write_txt("task1/result.txt", cypher_text(read_txt("task1/message.txt"), read_json("task1/key.json")))
+    write_txt("task1/result.txt", cypher_text(read_txt("task1/message.txt"), read_json("task1/key.json")))
     write_txt("task1/result_decypher.txt", decypher_text(read_txt("task1/result.txt"), read_json("task1/key.json")))
 
 if __name__ == '__main__':
