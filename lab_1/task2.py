@@ -102,11 +102,14 @@ def decypher_text(text: str, json_key_content: dict) -> str:
 
 
 def main() -> None:
-    text = read_txt("lab_1/task2/cod7.txt")
+    paths = read_json("paths.json")
+    task2_paths = paths["task2"]
+    
+    text = read_txt(task2_paths["cyphered_message"])
     sypher_freq_dict = get_freq(text)
-    write_json("lab_1/task2/cypher_freq.json", sypher_freq_dict)
-    result = decypher_text(text, read_json('lab_1/task2/key.json'))
-    write_txt('lab_1/task2/result.txt', result)
+    write_json(task2_paths["cypher_freq"], sypher_freq_dict)
+    result = decypher_text(text, read_json(task2_paths["key"]))
+    write_txt(task2_paths["result"], result)
 
         
 if __name__ == '__main__':

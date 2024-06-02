@@ -1,0 +1,14 @@
+{
+    "task1": {
+        "key":"task1/key.json",
+        "message":"task1/message.txt",
+        "result_decypher":"task1/result_decypher.txt",
+        "result":"task1/result.txt"
+    },
+    "task2":{
+        "cyphered_message":"task2/cod7.txt",
+        "cypher_freq":"task2/cypher_freq.json",
+        "key":"task2/key.json",
+        "result":"task2/result.txt"
+    }
+}
