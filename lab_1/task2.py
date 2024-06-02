@@ -35,8 +35,11 @@ def write_txt(file_path: str, data: str) -> None:
         file_path (str): path to file, which we need to fill
         data (str): what we need to write in file
     """
-    with open(file_path, 'w', encoding="UTF-8") as file:
-        file.write(data)
+    try:
+        with open(file_path, 'w', encoding="UTF-8") as file:
+            file.write(data)
+    except Exception as e:
+       print("Произошла ошибка:", e)
 
 
 def read_txt(file_path: str) -> str:
@@ -48,8 +51,11 @@ def read_txt(file_path: str) -> str:
     Returns:
         str: what the file contains
     """
-    with open(file_path, "r", encoding="UTF-8") as file:
-        return file.read().replace("\n", " \n")
+    try:
+        with open(file_path, "r", encoding="UTF-8") as file:
+            return file.read().replace("\n", " \n")
+    except Exception as e:
+       print("Произошла ошибка:", e)
 
 
 def read_json(file_path: str) -> dict:
