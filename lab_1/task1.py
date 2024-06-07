@@ -1,4 +1,5 @@
 import json
+
 from random import randint
 
 
@@ -184,7 +185,7 @@ def decypher_text(text: str, json_key_content: dict) -> str:
 
 
 def main() -> None:
-    paths = read_json("paths.json")
+    paths = read_json("lab_1/paths.json")
     task1_paths = paths["task1"]
 
     russian_alphabet = dict(read_json(task1_paths["key"])["alphabet"]).keys()

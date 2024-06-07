@@ -108,7 +108,7 @@ def decypher_text(text: str, json_key_content: dict) -> str:
 
 
 def main() -> None:
-    paths = read_json("paths.json")
+    paths = read_json("lab_1/paths.json")
     task2_paths = paths["task2"]
     
     text = read_txt(task2_paths["cyphered_message"])

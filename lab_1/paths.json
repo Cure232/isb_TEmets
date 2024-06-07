@@ -1,14 +1,14 @@
 {
     "task1": {
-        "key":"task1/key.json",
-        "message":"task1/message.txt",
-        "result_decypher":"task1/result_decypher.txt",
-        "result":"task1/result.txt"
+        "key":"lab_1/task1/key.json",
+        "message":"lab_1/task1/message.txt",
+        "result_decypher":"lab_1/task1/result_decypher.txt",
+        "result":"lab_1/task1/result.txt"
     },
     "task2":{
-        "cyphered_message":"task2/cod7.txt",
-        "cypher_freq":"task2/cypher_freq.json",
-        "key":"task2/key.json",
-        "result":"task2/result.txt"
+        "cyphered_message":"lab_1/task2/cod7.txt",
+        "cypher_freq":"lab_1/task2/cypher_freq.json",
+        "key":"lab_1/task2/key.json",
+        "result":"lab_1/task2/result.txt"
     }
 }
