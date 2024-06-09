@@ -1,4 +1,5 @@
 import math
+import mpmath
 
 
 def frequency_bit_test(bit_string: str) -> float:
@@ -78,16 +79,61 @@ def consecutive_bits_test(bit_string: str) -> float:
     return p_value
 
 
-def main() -> None:
-    paths = read_json("paths.json")
-    task1_paths = paths["task1"]
+def longest_sequence_test(bit_string: str) -> float:
+    """
+    Calculates the longest sequence of ones block eight test.
 
-    russian_alphabet = dict(read_json(task1_paths["key"])["alphabet"]).keys()
-    set_new_cypher_parameters(task1_paths["key"], new_alphabet=russian_alphabet, new_key="панграмма")
-    
-    write_txt(task1_paths["result"], cypher_text(read_txt(task1_paths["message"]), read_json(task1_paths["key"])))
-    write_txt(task1_paths["result_decypher"], decypher_text(read_txt(task1_paths["result"]), read_json(task1_paths["key"])))
+    The longest sequence of ones block eight test is a statistical test used to determine whether a sequence of bits is random.
+    The test is based on the assumption that the probability of a 0 or 1 bit occurring is equal.
+    The test statistic is the length of the longest sequence of consecutive 1s in the sequence.
+    The p-value is the probability of obtaining a test statistic as extreme as, or more extreme than,
+    the observed test statistic, assuming that the sequence is random.
 
+    Args:
+        array_bits (str): The sequence of bits to test.
 
-if __name__ == '__main__':
-    main() 
+    Returns:
+        float: The p-value of the test. 
+        If the value tends to 1, then it is said that the generator tends to be ideal.
+        If the P-value tends to 0, the generator is completely predictable.
+
+    Raises:
+        ValueError:  the input string is not a bitstring.
+    """
+
+    NATURAL_PROBABILITIES = {1: 0.2148, 2: 0.3672, 3: 0.2305, 4: 0.1875}
+    MAX_BLOCK_LENGTH = 8
+
+    if any([symbol not in ['0','1'] for symbol in bit_string]):
+        raise ValueError("This is not a bitstring")
+
+    if len(bit_string) != 128:
+        raise ValueError(f"This test is designed for 128 bits long string")
+
+    block_stats = {key: 0 for key in NATURAL_PROBABILITIES.keys()}
+
+    for i in range(0, len(bit_string), MAX_BLOCK_LENGTH):
+        block = bit_string[i:i + MAX_BLOCK_LENGTH]
+
+        length = 0
+        max_length = 0
+        for bit in block:
+            if bit == '1':
+                length += 1 
+            else:
+                max_length = max(max_length, length)
+                length = 0
+
+        if max_length >= 4:
+            max_length = 4
+        elif max_length < 1:
+            max_length = 1
+        block_stats[max_length] += 1
+
+    hi_square = 0
+    for block in block_stats.keys():
+        hi_square += ((block_stats[block] - 16 * NATURAL_PROBABILITIES[block])**2) / (
+            16 * NATURAL_PROBABILITIES[block])
+    p_value = float(mpmath.gammainc(3 / 2, hi_square / 2))
+
+    return p_value

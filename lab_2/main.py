@@ -34,19 +34,30 @@ def read_txt(file_path: str) -> str:
 def main() -> None:
     cpp_bit_string = read_txt("resources/cpp_sequence.txt")
     java_bit_string = read_txt("resources/java_sequence.txt")
-
+    
     result = "cpp:\n"
     cpp_fbt = frequency_bit_test(cpp_bit_string)
     result += f"frequency_bit_test: {cpp_fbt}\n"
     cpp_cbt = consecutive_bits_test(cpp_bit_string)
-    result += f"consecutive_bits_test: {cpp_cbt}\n\n"
-    
+    result += f"consecutive_bits_test: {cpp_cbt}\n"
+    cpp_lst = longest_sequence_test(cpp_bit_string)
+    result += f"longest_once_sequence_test: {cpp_lst}\n\n"
+
     result += "java:\n"
     java_fbt = frequency_bit_test(java_bit_string)
     result += f"frequency_bit_test: {java_fbt}\n"
     java_cbt = consecutive_bits_test(java_bit_string)
     result += f"consecutive_bits_test: {java_cbt}\n"
+    java_lst = longest_sequence_test(java_bit_string)
+    result += f"longest_once_sequence_test: {java_lst}\n"
 
+    foo_str = '1'*128
+    print("non randomized sequence example:", foo_str,
+          f"frequency_bit_test: {frequency_bit_test(foo_str)}",
+          f"consecutive_bits_test: {consecutive_bits_test(foo_str)}",
+          f"longest_sequence_test: {longest_sequence_test(foo_str)}",
+          sep='\n', end='\n\n')
+    
     print(result)
 
 
