@@ -59,6 +59,7 @@ def main() -> None:
           sep='\n', end='\n\n')
     
     print(result)
+    write_txt(file_path='results.txt', data=result)
 
 
 if __name__ == '__main__':
