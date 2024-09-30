@@ -30,7 +30,7 @@ def serialize_public_key(public_key: bytes, public_path: str) -> None:
        print("Error occured:", e)
 
 
-def serialization_private_key(private_key, private_path: str) -> None:
+def serialize_private_key(private_key, private_path: str) -> None:
 
     try:
         with open(private_path, 'wb') as private_out:
