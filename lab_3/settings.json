@@ -1,0 +1,10 @@
+{
+    "initial_file_path": "texts/text.txt",
+    "encrypted_file_path": "texts/encrypted_text.txt",
+    "decrypted_file_path": "texts/decrypted_text.txt",
+    "public_key_path": "keys/public_key.pem",
+    "secret_key_path": "keys/secret_key.pem",
+    "symmetric_key_path": "keys/symmetric_key.txt",
+    "encrypted_key_path": "keys/encrypted_key.txt",
+    "decrypted_key_path": "keys/decrypted_key.txt"
+}
