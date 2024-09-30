@@ -13,7 +13,7 @@ def generate_key(size_key: int) -> bytes:
     return key
 
 
-def key_serialization(key: bytes, path: str) -> None:
+def serialize_key(key: bytes, path: str) -> None:
 
     try:
         with open(path, 'wb') as key_file:
@@ -22,7 +22,7 @@ def key_serialization(key: bytes, path: str) -> None:
        print("Error occured:", e)
 
 
-def key_deserialization(path: str) -> bytes:
+def deserialize_key(path: str) -> bytes:
     try:
         with open(path, "rb") as file:
             key = file.read()
@@ -35,7 +35,7 @@ def encrypt(key: bytes, path: str, encrypted_path: str) -> None:
 
     text = read_binary(path)
     iv = os.urandom(16)
-    cipher = Cipher(algorithms.Camellia(key), modes.CBC(iv), backend=default_backend())
+    cipher = Cipher(algorithms.SM4(key), modes.CBC(iv), backend=default_backend())
 
     encryptor = cipher.encryptor()
     padder = padding.PKCS7(128).padder()
@@ -51,7 +51,7 @@ def decrypt(key: bytes, encrypted_path: str, decrypted_path: str) -> None:
     encrypted_text = read_binary(encrypted_path)
     iv = encrypted_text[:16]
     cipher_text = encrypted_text[16:]
-    cipher = Cipher(algorithms.Camellia(key), modes.CBC(iv), backend=default_backend())
+    cipher = Cipher(algorithms.SM4(key), modes.CBC(iv), backend=default_backend())
 
     decryptor = cipher.decryptor()
     decrypt_text = decryptor.update(cipher_text) + decryptor.finalize()

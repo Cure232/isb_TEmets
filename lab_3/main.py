@@ -1,5 +1,6 @@
-import symmetric
 import argparse
+import symmetric
+import assymetric
 from files_interactions import *
 
 
@@ -16,20 +17,37 @@ def menu():
     args = parser.parse_args()
 
     if args.generation:
-        key_length = int(input("Enter the key length in bits, in the range [128, 192, 256]: "))
-        print(f"Your key length: {key_length} ")
+        #key_length = int(input("Enter the key length in bits, in the range [128, 192, 256]: "))
+        key_length = 128
+        print(f"Your key length: {key_length}\n Algorithm: SM4\n")
         
+        assym_keys = assymetric.generate_keys()
+        assymetric.serialization_private_key(assym_keys["private_key"], settings["secret_key_path"])
+        assymetric.serialize_public_key(assym_keys["public_key"], settings["public_key_path"])
         key_serialization = symmetric.generate_key(key_length)
-        symmetric.key_serialization(key_serialization, settings["symmetric_key_path"])
+        symmetric.serialize_key(key_serialization, settings["symmetric_key_path"])
 
     elif args.encryption:
-        symmetric_key = symmetric.key_deserialization(settings["symmetric_key_path"])
+        symmetric_key = symmetric.deserialize_key(settings["symmetric_key_path"])
         symmetric.encrypt(symmetric_key, settings["initial_file_path"], settings["encrypted_file_path"])
 
     elif args.decryption:
-        symmetric_key = symmetric.key_deserialization(settings["symmetric_key_path"])
+        symmetric_key = symmetric.deserialize_key(settings["symmetric_key_path"])
         symmetric.decrypt(symmetric_key, settings["encrypted_file_path"], settings["decrypted_file_path"])
 
+    elif args.encryption_symmetric:
+        symmetric_key = symmetric.deserialize_key(settings["symmetric_key_path"])
+        public_key = assymetric.deserialize_public_key(settings["public_key_path"])
+        
+        encrypted_symmetric_key = assymetric.encrypt(public_key, symmetric_key)
+        write_binary(settings["encrypted_key_path"], encrypted_symmetric_key)
+
+    elif args.decryption_symmetric:
+        private_key = assymetric.deserialize_private_key(settings["secret_key_path"])
+        encrypted_symmetric_key = read_binary(settings["encrypted_key_path"])
+        
+        decrypted_symmetric_key = assymetric.decrypt(private_key, encrypted_symmetric_key)
+        write_binary(settings["decrypted_key_path"], decrypted_symmetric_key)
 
 if __name__ == "__main__":
     menu()
